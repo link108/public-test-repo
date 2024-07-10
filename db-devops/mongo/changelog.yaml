@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: my.poc:1
+      author: my.poc
+      labels: tag_1
+      context: example-context
+      comment: example comment
+      changes:
+        - createCollection:
+            collectionName: person
+            options:
+              validator:
+                  $jsonSchema:
+                    bsonType: object
+                    required:
+                    - name
+                    - address
+                  properties:
+                    name:
+                      bsonType: string
+                      description: "The Name"
+                    address:
+                      bsonType: string
+                      description: "The Address"
+              validationAction: warn
+              validationLevel: strict
+      rollback:
+      - dropCollection:
+            collectionName: person
